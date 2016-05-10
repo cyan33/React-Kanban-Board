@@ -1,21 +1,17 @@
 {
-  "name": "react_kanban_board",
-  "version": "1.0.0",
-  "description": "A checklist SPA implemented with React",
-  "main": "index.js",
+  "name": "react-app-boilerplate",
+  "version": "0.1.4",
+  "description": "React application boilerplate",
+  "author": "Cássio Zen",
+  "license": "ISC",
   "scripts": {
     "start": "webpack-dev-server --progress",
-    "build": "NODE_ENV=production webpack -p --progress --colors"
+    "build": "NODE_ENV=production node_modules/.bin/webpack -p --progress --colors"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thomasyimgit/React-Kanban-Board.git"
-  },
-  "author": "Thomas",
-  "license": "ISC",
   "devDependencies": {
     "babel-core": "~6.7.*",
     "babel-loader": "~6.2.*",
+    "babel-plugin-transform-regenerator": "^6.8.0",
     "babel-preset-es2015": "~6.6.*",
     "babel-preset-react": "~6.5.*",
     "webpack": "~1.12.*",
