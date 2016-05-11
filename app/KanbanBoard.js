@@ -13,7 +13,7 @@ class KanbanBoard extends React.Component {
 					this.props.cards.filter((card) => card.status === "in-progress")
 				} />
 				<List id="done" title="Done" cards={
-					this.props.cards.filter((card) =>  card.status === "done")
+					this.props.cards.filter((card) => card.status === "done")
 				} />
 			</div>
 		);

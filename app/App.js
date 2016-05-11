@@ -46,6 +46,6 @@ let cardsList = [
 	}
 ];
 
-ReactDOM.render(<KanbanBoard cards={cardsList} />, document.getElementById('root'));
+//render method
 
-// document.getElementById('root').innerHTML = "Hello";
+ReactDOM.render(<KanbanBoard cards={cardsList} />, document.getElementById('root'));
