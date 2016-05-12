@@ -66,10 +66,14 @@ ul {
 .card_title:before {
 	display: inline-block;
 	width: 1em;
-	content: '●';
+	margin-right: 5px;
+	font-weight: 700;
+	content: '→ ';
 }
 .card_title--is-open:before {
-	content: '●';
+	font-weight: 700;
+	margin-right: 5px;
+	content: '↓ ';
 }
 .checklist_task:first-child {
 	margin-top: 10px;

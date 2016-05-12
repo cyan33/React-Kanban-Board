@@ -16,15 +16,15 @@ import KanbanBoard from './KanbanBoard';
 let cardsList = [
 	{
 		id: 1,
-		title: "Read the Book",
-		description: "I should read the whole book",
+		title: "Commit to Github",
+		description: "*My* [github](https://github.com/thomasyimgit)",
 		status: "in-progress",
 		tasks: [ ]
 	},
 	{
 		id: 2,
 		title: "Write some code",
-		description: "Write the fuck code",
+		description: "Change the *world*",
 		status: "todo",
 		tasks: [
 			{
