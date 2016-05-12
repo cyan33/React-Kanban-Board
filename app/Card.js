@@ -7,7 +7,7 @@ class Card extends React.Component {
 	constructor () {
 		super();
 		this.state = {
-			showDetails: false
+			showDetails: true
 		};
 	}
 
@@ -29,12 +29,25 @@ class Card extends React.Component {
 			);
 		}
 
+		let sideColor = {
+			position: 'absolute',
+			zIndex: -1,
+			top: 0,
+			bottom: 0,
+			left: 0,
+			width: 9,
+			backgroundColor: this.props.color
+		};
+
 		return (
 			<div className="card">
+				<div style={sideColor} />
+
 				<div className={
 					this.state.showDetails ? "card_title card_title--is-open" : "card_title"
 				} onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
-				{cardDetails}		
+				
+				{cardDetails}
 			</div>
 		);
 	}

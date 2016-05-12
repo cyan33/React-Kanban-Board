@@ -18,6 +18,7 @@ let cardsList = [
 		id: 1,
 		title: "Commit to Github",
 		description: "*My* [github](https://github.com/thomasyimgit)",
+		color: "#bd8d31",
 		status: "in-progress",
 		tasks: [ ]
 	},
@@ -25,6 +26,7 @@ let cardsList = [
 		id: 2,
 		title: "Write some code",
 		description: "Change the *world*",
+		color: "#3a7e28",
 		status: "todo",
 		tasks: [
 			{
@@ -43,7 +45,15 @@ let cardsList = [
 				done: false
 			}
 		]
-	}
+	},
+	{
+		id: 3,
+		title: "Support Markdown in description",
+		description: "markdown is currently supported in the description of the tasks",
+		color: "#bd8d31",
+		status: "done",
+		tasks: [ ]
+	},
 ];
 
 //render method
