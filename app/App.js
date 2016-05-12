@@ -18,6 +18,7 @@ let cardsList = [
 		id: 1,
 		title: "Commit to Github",
 		description: "*My* [github](https://github.com/thomasyimgit)",
+		color: '#BD8D31',
 		status: "in-progress",
 		tasks: [ ]
 	},
@@ -25,6 +26,7 @@ let cardsList = [
 		id: 2,
 		title: "Write some code",
 		description: "Change the *world*",
+		color: '#3A7E28',
 		status: "todo",
 		tasks: [
 			{
@@ -43,6 +45,14 @@ let cardsList = [
 				done: false
 			}
 		]
+	},
+	{
+		id: 3,
+		title: "Support Markup",
+		description: "Support Markup in description",
+		color: '#333',
+		status: "done",
+		tasks: [ ]
 	}
 ];
 
