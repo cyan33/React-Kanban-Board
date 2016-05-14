@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import List from './List';
 
@@ -23,5 +23,9 @@ class KanbanBoard extends React.Component {
 		);
 	}
 }
+
+KanbanBoard.propTypes = {
+	cards: PropTypes.arrayOf(PropTypes.object)	
+};
 
 export default KanbanBoard;
