@@ -60,18 +60,13 @@ ul {
 	border-bottom: solid 5px transparent;
 	cursor: pointer;
 }
-.card_details {
-	margin-top: 10px;
-}
 .card_title:before {
 	display: inline-block;
 	width: 1em;
 	margin-right: 5px;
-	font-weight: 700;
 	content: '→ ';
 }
 .card_title--is-open:before {
-	font-weight: 700;
 	margin-right: 5px;
 	content: '↓ ';
 }

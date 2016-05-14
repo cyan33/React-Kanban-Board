@@ -35,7 +35,7 @@ class Card extends React.Component {
 			top: 0,
 			bottom: 0,
 			left: 0,
-			width: 7,
+			width: 9,
 			backgroundColor: this.props.color
 		};
 
@@ -45,7 +45,8 @@ class Card extends React.Component {
 				<div className={
 					this.state.showDetails ? "card_title card_title--is-open" : "card_title"
 				} onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
-				{cardDetails}		
+				
+				{cardDetails}
 			</div>
 		);
 	}
