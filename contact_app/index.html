@@ -6,11 +6,75 @@
 </head>
 <body>
 	<div id="root"></div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
-	<script>
-		
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
+	<script text="text/babel">
+		/*React data flow demo*/
+
+		//Components Hierarchy 
+		// - Contact App
+		//		- Contact Search Input
+		//		- Contact List
+		//			- Contact Items * n
+
+		// let contacts = [
+		// 	{ name: "Cassio Zen", email: "cassiozen@gmail.com" },
+		// 	{ name: "Dan Abramov", email: "gaearon@somewhere.com" },
+		// 	{ name: "Pete Hunt", email: "floydophone@somewhere.com" },
+		// 	{ name: "Paul O’Shannessy", email: "zpao@somewhere.com" },
+		// 	{ name: "Ryan Florence", email: "rpflorence@somewhere.com" },
+		// 	{ name: "Sebastian Markbage", email: "sebmarkbage@here.com" },
+		// ];
+
+		// class ContactApp extends React.Component {
+		// 	render () {
+		// 		return (
+		// 			<div>
+		// 				<ContactSearch />
+		// 				<ContactList contacts={this.props.contacts} />
+		// 			</div>
+		// 		);
+		// 	}
+		// }
+
+		// class ContactSearch extends React.Component {
+		// 	render () {
+		// 		return (
+		// 			<input type="text" />
+		// 		);
+		// 	}
+		// }
+
+		// class ContactList extends React.Component {
+		// 	render () {
+		// 		let filteredContacts = this.props.contacts.filter((contact) => {
+		// 			return contact.name.indexOf(this.props.filterText) !== -1;
+		// 		});
+
+		// 		return (
+		// 			<div>
+		// 				{filteredContacts.map((contact) => {
+		// 					return <ContactItem keys={contact.name}
+		// 										name={contact.name} 
+		// 										email={contact.email} />
+		// 				})}
+		// 			</div>
+		// 		);
+		// 	}
+		// }
+
+		// class ContactItem extends React.Component {
+		// 	render () {
+		// 		return (
+		// 			<div>
+		// 				<b>{this.props.name}</b> - <em>{this.props.email}</em>
+		// 			</div>
+		// 		);
+		// 	}
+		// }
+
+		// ReactDOM.render(<ContactApp contacts={contacts} />, document.getElementById('root'));
 	</script>
 </body>
 </html>
