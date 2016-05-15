@@ -4,6 +4,7 @@
 * Webpack & webpack-dev-server
 * Babel Core
 * Babel Loader (With "es2015" and "react" presets)
+* marked
 
 ## Usage
 
