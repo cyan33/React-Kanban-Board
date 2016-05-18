@@ -10,18 +10,18 @@ class CheckList extends React.Component {
 	}
 
 	render () {
-		let tasks = this.props.tasks.map((task) => {
+		let tasks = this.props.tasks.map((task, taskIndex) => {
 			return (
 				<li className="checklist_task" key={task.id}>
 					<input type="checkbox" 
 						defaultChecked={task.done}
-						onChange={this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, task.index)} />
+						onChange={this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, taskIndex)} />
 					
 					{task.name}
 
 					<a href="#" 
 						className="checklist_task--remove"
-						onClick={this.props.taskCallbacks.delete.bind(null, this.props.cardId, task.id, task.index)} />
+						onClick={this.props.taskCallbacks.delete.bind(null, this.props.cardId, task.id, taskIndex)} />
 				</li>
 			);
 		});

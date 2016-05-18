@@ -1,11 +1,8 @@
 import React from 'react';
 import KanbanBoard from './KanbanBoard';
+import update from 'react-addons-update';
 import 'whatwg-fetch';
 import 'babel-polyfill';
-
-var update = require('react-addons-update');
-
-
 
 //This API is provided for educational purposes only.
 //As such, stored information will be reset after 24 hours of inactivity.
@@ -61,18 +58,31 @@ class KanbanBoardContainer extends React.Component {
 			headers: requestHeader,
 			body: JSON.stringify(newTask)
 		})
-		.then((response) => response.json())
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			else {
+				throw new Error("Cannot access the remote server");
+			}
+		})
 		.then((responseData) => {
 			//when the server returns the definitive ID
-			//usd for the new Task on the server, update it on React
+			//used for the new Task on the server, update it on React
 			newTask.id = responseData.id;
 			this.setState({cards: nextState});
 		})
+		.catch((error) => {
+			this.setState({cards: prevState});
+		});
+
 	}
 
 	deleteTask (cardId, taskId, taskIndex) {
 		//Find the index of the card
 		let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+
+		let prevState = this.state.cards;
 
 		//create the new object without the task
 		let nextState = update(this.state.cards, {
@@ -87,6 +97,14 @@ class KanbanBoardContainer extends React.Component {
 		fetch(`${url}/cards/${cardId}/tasks/${taskId}`, {
 			method: 'delete',
 			headers: requestHeader
+		})
+		.then((response) => {
+			if(!response.ok) {
+				throw new Error("Cannot access the remote server");
+			}
+		})
+		.catch((error) => {
+			this.setState({cards: prevState});
 		});
 	}
 
@@ -98,20 +116,20 @@ class KanbanBoardContainer extends React.Component {
 		let newDoneValue;
 
 		//Using the $apply command, you will change the done value to its opposite
-		let nextState = update(this.state.cards, {
-									[cardIndex]: {
-										tasks: {
-											[taskIndex]: {
-												//There is a bug and I don't know how to fix it :(
-												done: { $apply: (done) => {
-													newDoneValue = !done;
-													return newDoneValue;
-													}
-												}
-											}
-										}
-									}
-								});
+		let nextState = update(
+	      this.state.cards, {
+	        [cardIndex]: {
+	          tasks: {
+	            [taskIndex]: {
+	              done: { $apply: (done) => {
+	                newDoneValue = !done
+	                return newDoneValue;
+	              }
+	            }
+	          }
+	        }
+	      }
+	    });
 
 		this.setState({cards: nextState});
 
@@ -119,6 +137,14 @@ class KanbanBoardContainer extends React.Component {
 			method: 'put',
 			headers: requestHeader,
 			body: JSON.stringify({done: newDoneValue})
+		})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error("Cannot access the remote server");
+			}
+		})
+		.catch((error) => {
+			this.setState({cards: prevState});
 		});
 	}
 
