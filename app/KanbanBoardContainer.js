@@ -1,6 +1,10 @@
 import React from 'react';
 import KanbanBoard from './KanbanBoard';
 import 'whatwg-fetch';
+import 'babel-polyfill';
+
+var update = require('react-addons-update');
+
 
 
 //This API is provided for educational purposes only.
@@ -20,7 +24,7 @@ class KanbanBoardContainer extends React.Component {
 		};
 	}
 
-	//when the component mounted, trigger this function 
+	//when the component mounted(before render), trigger this function and fetch the cards from remote server, update the state
 	componentDidMount () {
 		fetch(url + '/cards', {headers: requestHeader})
 		.then((response) => response.json())
@@ -33,6 +37,9 @@ class KanbanBoardContainer extends React.Component {
 	}
 
 	addTask (cardId, taskName) {
+		//Store the current state in case you want to revert
+		let prevState = this.state;
+
 		//Find the index of the card
 		let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
 
@@ -46,7 +53,7 @@ class KanbanBoardContainer extends React.Component {
 									}
 								});
 
-		this.setState({cards.nextState});
+		this.setState({cards: nextState});
 
 		//call the api to add the task
 		fetch(`${url}/cards/${cardId}/tasks`, {
@@ -61,7 +68,7 @@ class KanbanBoardContainer extends React.Component {
 			newTask.id = responseData.id;
 			this.setState({cards: nextState});
 		})
-	}	
+	}
 
 	deleteTask (cardId, taskId, taskIndex) {
 		//Find the index of the card
@@ -76,7 +83,7 @@ class KanbanBoardContainer extends React.Component {
 		//set the component state to the mutated object
 		this.setState({cards: nextState});
 
-		//call the api to remove the task
+		//call the api to remove the task from the remote server
 		fetch(`${url}/cards/${cardId}/tasks/${taskId}`, {
 			method: 'delete',
 			headers: requestHeader
@@ -95,8 +102,9 @@ class KanbanBoardContainer extends React.Component {
 									[cardIndex]: {
 										tasks: {
 											[taskIndex]: {
+												//There is a bug and I don't know how to fix it :(
 												done: { $apply: (done) => {
-													newDoneValue = !done
+													newDoneValue = !done;
 													return newDoneValue;
 													}
 												}
@@ -105,12 +113,12 @@ class KanbanBoardContainer extends React.Component {
 									}
 								});
 
-		this.setState({cards: nextState]});
+		this.setState({cards: nextState});
 
 		fetch(`${url}/cards/${cardId}/tasks/${taskId}`, {
 			method: 'put',
 			headers: requestHeader,
-			body: JSON.stringify({done: newDoneValue});
+			body: JSON.stringify({done: newDoneValue})
 		});
 	}
 

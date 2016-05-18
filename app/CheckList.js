@@ -4,7 +4,7 @@ class CheckList extends React.Component {
 	checkInputKeyPress (event) {
 		if(event.key === "Enter") {
 			//add the task and clear the current input
-			this.props.taskCallbacks.addTask(this.props.cardId, event.target.value);
+			this.props.taskCallbacks.add(this.props.cardId, event.target.value);
 			event.target.value = "";	
 		}
 	}
