@@ -3,6 +3,7 @@ import KanbanBoard from './KanbanBoard';
 import update from 'react-addons-update';
 import 'whatwg-fetch';
 import 'babel-polyfill';
+import { throttle } from './util';
 
 // An example json fetched from the remote API
 
@@ -51,6 +52,9 @@ class KanbanBoardContainer extends React.Component {
 		this.state = {
 			cards: [ ]
 		};
+		// Only call updateCardStatus when arguments changed
+		this.updateCardStatus = throttle(this.updateCardStatus.bind(this));
+		this.updateCardPosition = throttle(this.updateCardPosition.bind(this));
 	}
 
 	//when the component mounted(before render), trigger this function and fetch the cards from remote server, update the state
