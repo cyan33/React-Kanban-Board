@@ -4,6 +4,38 @@ import update from 'react-addons-update';
 import 'whatwg-fetch';
 import 'babel-polyfill';
 
+// An example json fetched from the remote API
+
+// "this.state.card" is equivalent to this json
+// [{
+// 	"id": 1797,
+// 	"title": "Read the Book",
+// 	"description": "I should read the **whole** book",
+// 	"color": "#BD8D31",
+// 	"status": "in-progress",
+// 	"tasks": []
+// }, {
+// 	"id": 1798,
+// 	"title": "Write some code",
+// 	"description": "Code along with the samples in the book at [github](https://github.com/pro-react)",
+// 	"color": "#3A7E28",
+// 	"status": "todo",
+// 	"tasks": [{
+// 		"id": 6327,
+// 		"name": "Kanban Example",
+// 		"done": false
+// 	}, {
+// 		"id": 6328,
+// 		"name": "My own experiments",
+// 		"done": false
+// 	}, {
+// 		"id": 6326,
+// 		"name": "ContactList Example",
+// 		"done": false
+// 	}]
+// }]
+
+
 //This API is provided for educational purposes only.
 //As such, stored information will be reset after 24 hours of inactivity.
 //Please be careful and do not store sensible information.
@@ -148,13 +180,57 @@ class KanbanBoardContainer extends React.Component {
 		});
 	}
 
+	updateCardStatus (cardId, listId) {
+		// get the current card through the cardId
+		let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+		let card = this.state.cards[cardIndex];
+
+		// Only proceed if hovering over a different list
+		if (card.status !== listId) {
+			this.setState(update(this.state, {
+				cards: {
+					[cardIndex]: {
+						//change the state when the card is draged to another list
+						status: { $set: listId }
+					}
+				}
+			}));
+		}
+	}
+
+	updateCardPosition (cardId, afterId) {
+		// Only proceed if hovering over a different card
+		if (cardId !== afterId) {
+			let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+			let card = this.state.cards[cardIndex];
+
+			let afterIndex = this.state.cards.findIndex((card) => card.id = afterId);
+			// Use splice to remove the card and reinsert it a new index
+			this.setState(update(this.state, {
+				cards: {
+					$splice: [
+						[cardIndex, 1],	  //remove
+						[afterIndex, 0, card]	//insert
+					]
+				}
+			}));
+
+		}
+	}
+
 	render () {
 		return <KanbanBoard cards={this.state.cards} 
 							taskCallbacks={{
 								toggle: this.toggleTask.bind(this),
 								delete: this.deleteTask.bind(this),
 								add: this.addTask.bind(this)
-							}} />
+							}} 
+
+							cardCallbacks = {{
+								updateStatus: this.updateCardStatus.bind(this),
+								updatePosition: this.updateCardPosition.bind(this)
+							}}
+				/>
 	}
 }
 

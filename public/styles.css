@@ -89,3 +89,26 @@ ul {
 	margin-top: 5px;
 	border-radius: 3px;
 }
+
+/*React-Transition-Group for Card.js*/
+/*toggle-enter*/
+.toggle-enter {
+	max-height: 0;
+	overflow: hidden;
+}
+.toggle-enter.toggle-enter-active {
+	max-height: 300px;
+	overflow: hidden;
+	transition: max-height .25s ease-in;
+}
+
+/*toggle leave*/
+.toggle-leave {
+	max-height: 300px;
+	overflow: hidden;
+}
+.toggle-leave.toggle-leave-active {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height .25s ease-out;
+}
