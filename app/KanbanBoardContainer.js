@@ -50,7 +50,7 @@ class KanbanBoardContainer extends React.Component {
 	constructor () {
 		super();
 		this.state = {
-			cards: [ ]
+			cards: []
 		};
 		// Only call updateCardStatus when arguments changed
 		this.updateCardStatus = throttle(this.updateCardStatus.bind(this));
@@ -66,6 +66,67 @@ class KanbanBoardContainer extends React.Component {
 		})
 		.catch((error) => {
 			console.log("Error fetching and parsing data", error);
+		});
+	}
+
+	addCard (card) {
+		let prevState = this.state;
+
+		if (!card.id) {
+			// Deep copy
+			let card = Object.assign({}, card, {id: Date.now()});
+		}
+
+		let nextState = update(this.state.cards, { $push: [card] });
+		this.setState({cards: nextState});
+
+		fetch(`${url}/cards/`, {
+			method: 'post',
+			headers: requestHeader,
+			body: JSON.stringify(card)
+		})
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			else {
+				throw new Error("Server response was not okay.");
+			}
+		})
+		.then((responseData) => {
+			// use the definitive id from the server and use react to update the id
+			card.id = responseData.id;
+			this.setState({ cards: nextState });
+		})
+		.catch((error) => {
+			this.setState({cards: prevState});
+			console.log(error);
+		});
+	}	
+
+	updateCard (card) {
+		let prevState = this.state;
+		let cardIndex = this.state.cards.findIndex((c) => c.id == card.id);
+
+		let nextState = update(this.state.cards, {
+			[cardIndex]: { $set: card }
+		});
+
+		this.setState({cards: nextState });
+
+		fetch(`${url}/cards/${card.id}`, {
+			method: 'post',
+			headers: requestHeader,
+			body: JSON.stringify(card)
+		})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error("Server response wasn't ok.");
+			}
+		})
+		.catch((error) => {
+			this.setState({cards: prevState});
+			console.log(error);
 		});
 	}
 
@@ -202,6 +263,7 @@ class KanbanBoardContainer extends React.Component {
 		}
 	}
 
+	// bug?
 	updateCardPosition (cardId, afterId) {
 		// Only proceed if hovering over a different card
 		if (cardId !== afterId) {
@@ -222,19 +284,51 @@ class KanbanBoardContainer extends React.Component {
 		}
 	}
 
-	render () {
-		return <KanbanBoard cards={this.state.cards} 
-							taskCallbacks={{
-								toggle: this.toggleTask.bind(this),
-								delete: this.deleteTask.bind(this),
-								add: this.addTask.bind(this)
-							}} 
+	persistCardDrag (cardId, status) {
+		let cardIndex = this.state.cards.findIndex((card) => card.id == cardId);
+		let card = this.state.cards[cardIndex];
 
-							cardCallbacks = {{
-								updateStatus: this.updateCardStatus.bind(this),
-								updatePosition: this.updateCardPosition.bind(this)
-							}}
-				/>
+		fetch(`${url}/cards/${cardId}`, {
+			method: 'put',
+			headers: requestHeader,
+			body: JSON.stringify({ status: card.status, row_order_position: cardIndex })
+		})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error("Server response wasn\'t OK")
+			}
+		})
+		.catch((error) => {
+			console.error("fetch error: ", error);
+			this.setState(
+				update(this.state, {
+					cards: {
+						[cardIndex]: {
+							status: { $set: status }
+						}
+					}
+				})
+			);
+		})
+	}
+
+	render () {
+		// ? fix the render method
+		let kanbanBoard = this.props.children && React.cloneElement(this.props.children, {
+			cards: this.state.cards,
+			taskCallbacks: {
+				toggle: this.toggleTask.bind(this),
+				delete: this.deleteTask.bind(this),
+				add: this.addTask.bind(this)
+			},
+			cardCallbacks: {
+				updateStatus: this.updateCardStatus.bind(this),
+				updatePosition: this.updateCardPosition.bind(this),
+				persistCardDrag: this.persistCardDrag.bind(this)			
+			}
+		});
+
+		return kanbanBoard;
 	}
 }
 
