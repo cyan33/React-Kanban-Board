@@ -3,12 +3,8 @@ import ReactDOM from "react-dom";
 
 class CardForm extends React.Component {
 	handleChange (field, e) {
-		this.props.handleChange(field, e.target.value);
+		this.props.handleChange(field, e.target.value.toString());
 	}
-
-	// handleSubmit () {
-
-	// }
 
 	handleClose (e) {
 		e.preventDefault();
@@ -34,22 +30,21 @@ class CardForm extends React.Component {
 							placeholder="description"
 							required={true}
 						/>
-						<label htmlFor="status">Status</label>
-						<select id="status"
-								value={this.props.draftCard.status}
-								onChange={this.props.handleChange.bind(this, 'status')}	>
-							<option value="todo">To Do</option>
-							<option value="in-progress">In Progress</option>
-							<option value="done">Done</option>
-						</select>
-						<br />
+						<div className="selectstatus">
+							<label htmlFor="status">Status</label>
+							<select id="status"
+									onChange={this.props.handleChange.bind(this, 'status')}	>
+								<option value="todo">To Do</option>
+								<option value="in-progress">In Progress</option>
+								<option value="done">Done</option>
+							</select>
+						</div>
 						<label htmlFor="color">Color</label>
 						<input 
 							id="color"
 							value={this.props.draftCard.color}
 							onChange={this.handleChange.bind(this, 'color')} 
 							type="color"
-							defaultValue="#ff0000"
 						/>
 						<div className="actions">
 							<button type="submit">{this.props.buttonLabel}</button>

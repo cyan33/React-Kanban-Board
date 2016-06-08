@@ -147,8 +147,13 @@ ul {
 }
 
 .card.big input[type="text"] {
+	display: block;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+.card.big input[type="color"] {
+	display: inline-block;
 }
 
 .card.big input[type="text"]:focus,
@@ -160,7 +165,7 @@ ul {
 .card.big label {
 	margin: 3px 0 7px 3px;
 	color: #a7a7a7;
-	display: inline-block;
+	display: block;
 	width: 6px;
 }
 

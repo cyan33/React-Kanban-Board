@@ -40,10 +40,11 @@ import { throttle } from './util';
 //This API is provided for educational purposes only.
 //As such, stored information will be reset after 24 hours of inactivity.
 //Please be careful and do not store sensible information.
+
 const url = 'http://kanbanapi.pro-react.com';
 const requestHeader = {
 	'Content-Type': 'application/json',
-	Authorization: 'thomasyim'	//replace this string for your own identity
+	Authorization: "thomasyim"
 };
 
 class KanbanBoardContainer extends React.Component {
@@ -322,6 +323,7 @@ class KanbanBoardContainer extends React.Component {
 				add: this.addTask.bind(this)
 			},
 			cardCallbacks: {
+				addCard: this.addCard.bind(this),
 				updateStatus: this.updateCardStatus.bind(this),
 				updatePosition: this.updateCardPosition.bind(this),
 				persistCardDrag: this.persistCardDrag.bind(this)			

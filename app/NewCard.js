@@ -36,7 +36,7 @@ class NewCard extends React.Component {
 				buttonLabel="Create Card"
 				handleClose={this.handleClose.bind(this)}
 				handleChange={this.handleChange.bind(this)}
-				handleSubmit={this.handlesubmit.bind(this)}
+				handleSubmit={this.handleSubmit.bind(this)}
 			/>
 		);
 	}

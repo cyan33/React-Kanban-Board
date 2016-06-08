@@ -47,7 +47,7 @@ class KanbanBoard extends React.Component {
 }
 
 KanbanBoard.propTypes = {
-	cards: PropTypes.arrayOf(PropTypes.object)	,
+	cards: PropTypes.arrayOf(PropTypes.object),
 	taskCallbacks: PropTypes.object,
 	cardCallbacks: PropTypes.object
 };
