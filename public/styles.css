@@ -2,23 +2,29 @@
 	box-sizing: border-box;
 }
 html, body, #app {
-	height:100%;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 }
 body {
-	background: #eee;
+	background-image: url('images/sanfrancisco.jpeg');
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-position: -230px -300px;
+	background-repeat: no-repeat;
 }
 h1 {
 	font-weight: 700;
-	color: #3b414c;
+	color: white;
 	font-size: 30px;
+	text-shadow: 2px 2px 4px #000;
 }
 ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
+}
+.welcome {
+	margin-left: 20px;
 }
 .app {
 	white-space: nowrap;
@@ -46,16 +52,21 @@ ul {
 .card {
 	position: relative;
 	z-index: 1;
-	background: #fff;
+	background: #232316;
+	color: white;
 	width: 100%;
 	padding: 10px 10px 10px 15px;
 	margin: 0 0 10px 0;
 	overflow: auto;
-	border: 1px solid #e5e5df;
-	border-radius: 3px;
+	border: 1px solid #232316;
+	border-radius: 5px;
 	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+	font-family: 'Lora', serif;
+	text-shadow: 2px 2px 4px #000;
 }
 .card_title {
+	color: #ef9a1b;
+	font-size: 1.2em;
 	font-weight: bold;
 	border-bottom: solid 5px transparent;
 	cursor: pointer;
@@ -70,6 +81,15 @@ ul {
 	margin-right: 5px;
 	content: '↓ ';
 }
+.card_details {
+	padding-left: 10px;
+}
+.checklist_task {
+	margin-bottom: 7px;
+}
+.checklist_task:last-child {
+	margin-bottom: 20px;
+}
 .checklist_task:first-child {
 	margin-top: 10px;
 	padding-top: 10px;
@@ -83,11 +103,31 @@ ul {
 	content: "X";
 }
 .checklist-add-task {
+	color: white;
+	font-weight: 600;
 	border: 1px dashed #bbb;
 	width: 100%;
 	padding: 10px;
 	margin-top: 5px;
-	border-radius: 3px;
+	border-radius: 7px;
+	background-color: #8C918E;
+}
+.checklist-add-task::-webkit-input-placeholder {
+	/*webkit*/
+	color: white;
+}
+.checklist-add-task:-moz-placeholder {
+	/*Mozilla 17-*/
+	color: white;
+}
+
+.checklist-add-task::-moz-placeholder {
+	/*Mozilla 18+*/
+	color: white;
+}
+.checklist-add-task:-ms-input-placeholder {
+	/*IE*/
+	color: white;
 }
 
 /*React-Transition-Group for Card.js*/
@@ -129,7 +169,7 @@ ul {
 .card.big {
 	position: absolute;
 	width: 450px;
-	height: 200px;
+	height: 260px;
 	margin: auto;
 	padding: 15px;
 	top: 0;
@@ -137,22 +177,29 @@ ul {
 	bottom: 100px;
 	right: 0;
 	z-index: 3;
+	border-radius: 5px;
 }
 
 .card.big input[type="text"], textarea {
+	border-radius: 7px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-bottom: 5px;
 	width: 100%;
 	margin: 3px 0;
-	font-size: 13px;
+	font-size: 15px;
 	border: none;
 }
 
 .card.big input[type="text"] {
+	border-radius: 5px;
 	display: block;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: bold;
 }
 
 .card.big input[type="color"] {
+	border-radius: 5px;
 	display: inline-block;
 }
 
@@ -167,6 +214,10 @@ ul {
 	color: #a7a7a7;
 	display: block;
 	width: 6px;
+}
+
+.card.big select {
+	border-radius: 5px;
 }
 
 .actions {

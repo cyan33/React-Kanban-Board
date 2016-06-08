@@ -27,7 +27,7 @@ class CardForm extends React.Component {
 						<textarea
 							value={this.props.draftCard.description}
 							onChange={this.handleChange.bind(this, 'description')}
-							placeholder="description"
+							placeholder="Description"
 							required={true}
 						/>
 						<div className="selectstatus">
