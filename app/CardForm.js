@@ -33,7 +33,8 @@ class CardForm extends React.Component {
 						<div className="selectstatus">
 							<label htmlFor="status">Status</label>
 							<select id="status"
-									onChange={this.props.handleChange.bind(this, 'status')}	>
+									onChange={this.handleChange.bind(this, 'status')}
+							>
 								<option value="todo">To Do</option>
 								<option value="in-progress">In Progress</option>
 								<option value="done">Done</option>
